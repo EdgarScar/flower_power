@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_043239) do
+ActiveRecord::Schema.define(version: 2020_07_01_103645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2020_02_15_043239) do
     t.decimal "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "price", precision: 10, scale: 2
     t.index ["type_id"], name: "index_listings_on_type_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
@@ -33,23 +32,6 @@ ActiveRecord::Schema.define(version: 2020_02_15_043239) do
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_order_lists_on_listing_id"
     t.index ["user_id"], name: "index_order_lists_on_user_id"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.bigint "listing_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["listing_id"], name: "index_orders_on_listing_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
-  create_table "sellers", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "genus", null: false
-    t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "types", force: :cascade do |t|
@@ -76,6 +58,4 @@ ActiveRecord::Schema.define(version: 2020_02_15_043239) do
   add_foreign_key "listings", "users"
   add_foreign_key "order_lists", "listings"
   add_foreign_key "order_lists", "users"
-  add_foreign_key "orders", "listings"
-  add_foreign_key "orders", "users"
 end
